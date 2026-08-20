@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+{% block title %}직원 관리{% endblock %}
+{% block content %}
+<nav><a href="/admin/dashboard">대시보드</a><a href="/admin/employees">직원 관리</a><a href="/admin/logout">로그아웃</a></nav>
+<div class="card">
+  <h1>직원 관리</h1>
+  <h3>직원 추가</h3>
+  <form method="post">
+    <input type="hidden" name="action" value="add">
+    <input name="name" placeholder="이름" required>
+    <input name="pin" placeholder="PIN (기본 0000)">
+    <button class="primary" type="submit">추가</button>
+  </form>
+</div>
+{% for e in employees %}
+<div class="card">
+  <form method="post">
+    <input type="hidden" name="action" value="update">
+    <input type="hidden" name="employee_id" value="{{e.id}}">
+    <label>이름</label><input name="name" value="{{e.name}}" required>
+    <label>PIN</label><input name="pin" value="{{e.pin}}" required>
+    <button class="primary" type="submit">수정</button>
+  </form>
+  <form method="post" style="margin-top:10px" onsubmit="return confirm('비활성화할까요?')">
+    <input type="hidden" name="action" value="deactivate">
+    <input type="hidden" name="employee_id" value="{{e.id}}">
+    <button class="danger" type="submit">비활성화</button>
+  </form>
+</div>
+{% endfor %}
+{% endblock %}

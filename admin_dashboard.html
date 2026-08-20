@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% block title %}관리자 대시보드{% endblock %}
+{% block content %}
+<nav><a href="/admin/dashboard">대시보드</a><a href="/admin/employees">직원 관리</a><a href="/admin/logout">로그아웃</a></nav>
+<div class="card">
+  <h1>관리자 대시보드</h1>
+  <form method="get">
+    <label>조회 월</label>
+    <input type="month" name="month" value="{{month}}">
+    <button class="primary" type="submit">조회</button>
+    <a href="/admin/export.csv?month={{month}}">CSV 다운로드</a>
+  </form>
+</div>
+<div class="card">
+  <h2>월 합계</h2>
+  <table>
+    <tr><th>이름</th><th>근무일수</th><th>총 근무시간</th></tr>
+    {% for t in totals %}
+    <tr><td>{{t.name}}</td><td>{{t.days}}</td><td>{{t.minutes // 60}}:{{"%02d"|format(t.minutes % 60)}}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+<div class="card">
+  <h2>출퇴근 기록</h2>
+  <table>
+    <tr><th>날짜</th><th>이름</th><th>출근</th><th>퇴근</th></tr>
+    {% for r in rows %}
+    <tr><td>{{r.work_date}}</td><td>{{r.employee.name}}</td><td>{{r.clock_in[11:16] if r.clock_in else ""}}</td><td>{{r.clock_out[11:16] if r.clock_out else ""}}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
