@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}
+{% block title %}직원 로그인{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>직원 출퇴근 체크</h1>
+  <p class="muted">이름과 개인 PIN을 입력하세요.</p>
+  <form method="post">
+    <label>직원</label>
+    <select name="employee_id" required>
+      {% for e in employees %}<option value="{{e.id}}">{{e.name}}</option>{% endfor %}
+    </select>
+    <label>PIN</label>
+    <input type="password" name="pin" inputmode="numeric" maxlength="8" required>
+    <button class="primary btnbig" type="submit">들어가기</button>
+  </form>
+</div>
+<p><a href="/admin">관리자 페이지</a></p>
+{% endblock %}

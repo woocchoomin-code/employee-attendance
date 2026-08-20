@@ -1,0 +1,14 @@
+
+{% extends "base.html" %}
+{% block title %}관리자 로그인{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>관리자 로그인</h1>
+  <form method="post">
+    <label>관리자 PIN</label>
+    <input type="password" name="pin" required>
+    <button class="primary btnbig" type="submit">로그인</button>
+  </form>
+</div>
+<p><a href="/">직원 화면으로</a></p>
+{% endblock %}

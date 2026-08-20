@@ -1,0 +1,38 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}출퇴근 체크{% endblock %}</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f6f8; margin:0; color:#222; }
+    .wrap { max-width:900px; margin:0 auto; padding:20px; }
+    .card { background:#fff; border-radius:14px; padding:20px; margin:14px 0; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+    input,select,button { font-size:16px; padding:12px; border-radius:10px; border:1px solid #ccc; box-sizing:border-box; }
+    input,select { width:100%; margin:6px 0 12px; }
+    button { cursor:pointer; border:none; }
+    .primary { background:#1f4e78; color:#fff; }
+    .danger { background:#b42318; color:#fff; }
+    .muted { color:#666; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .btnbig { width:100%; padding:18px; font-size:20px; font-weight:bold; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { padding:10px; border-bottom:1px solid #ddd; text-align:center; }
+    .flash { background:#fff3cd; padding:10px; border-radius:8px; margin-bottom:12px; }
+    a { color:#1f4e78; text-decoration:none; }
+    nav { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+    @media (max-width:600px){ .grid{grid-template-columns:1fr;} th,td{font-size:13px;padding:7px;} }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for m in messages %}<div class="flash">{{m}}</div>{% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+{% block title %}출퇴근{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>{{session.employee_name}}님</h1>
+  <p class="muted">{{today}}</p>
+  <div class="grid">
+    <form method="post" action="/clock-in"><button class="primary btnbig" type="submit">출근</button></form>
+    <form method="post" action="/clock-out"><button class="danger btnbig" type="submit">퇴근</button></form>
+  </div>
+  {% if row %}
+    <p>오늘 출근: {{row.clock_in[11:16] if row.clock_in else "-"}} / 퇴근: {{row.clock_out[11:16] if row.clock_out else "-"}}</p>
+  {% endif %}
+</div>
+<div class="card">
+  <h2>최근 기록</h2>
+  <table>
+    <tr><th>날짜</th><th>출근</th><th>퇴근</th></tr>
+    {% for r in recent %}
+    <tr><td>{{r.work_date}}</td><td>{{r.clock_in[11:16] if r.clock_in else ""}}</td><td>{{r.clock_out[11:16] if r.clock_out else ""}}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+<p><a href="/logout">로그아웃</a></p>
+{% endblock %}
